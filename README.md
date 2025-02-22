@@ -13,4 +13,6 @@ This stage is a simple viewer of a 3D model that loads Graphics Library Transmis
   What is WebGL?
   WebGL is a web API that is built into browsers that utilizes a persons own GPU to create visulizations and Three.js just makes it simpler to use and allows you to interact with it      through JS.
 
+  Source of test model 1: https://sketchfab.com/3d-models/villa-royal-beach-f5d12e6ffd4d4124b8c3a8c8d501ccd5
+
 Phase 2:
