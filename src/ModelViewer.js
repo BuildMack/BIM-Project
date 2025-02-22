@@ -20,14 +20,14 @@ const ModelViewer = ({file}) => {
         const box = new THREE.Box3().setFromObject(gltf.scene);
         const center = box.getCenter(new THREE.Vector3());
         const size = box.getSize(new THREE.Vector3()); //Box of the model
-
-        const cameraDistance = Math.max(size.x, size.y, size.z) * 1.5; //Getting dimensions of the model
+        gltf.scene.position.sub(center); // center the model in the view
+        const cameraDistance = Math.max(size.x, size.y, size.z) * 2; //Getting dimensions of the model
         setCameraPosition([center.x, center.y, center.z + cameraDistance]); //Setting the camera position an appropriate distance away from model center
         }
     }, [gltf]);
 
   return ( //return the information for making a 3D scene
-    <Canvas camera={{ position: cameraPosition,near: 0.1, far: 10000, fov: 50 }}>
+    <Canvas camera={{ position: cameraPosition,near: 0.1, far: 10000000, fov: 100 }}>
       <ambientLight intensity={2} />
       <directionalLight position={[5, 10, 5]} intensity={2} />
       <primitive object={gltf.scene} />

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Hawk Lane Scandinavian Style House
+* source:	https://sketchfab.com/3d-models/hawk-lane-scandinavian-style-house-8d8a31fcca314f9cb334b04468f3d926
+* author:	Azimuth Design (https://sketchfab.com/azimuthnz)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Hawk Lane Scandinavian Style House" (https://sketchfab.com/3d-models/hawk-lane-scandinavian-style-house-8d8a31fcca314f9cb334b04468f3d926) by Azimuth Design (https://sketchfab.com/azimuthnz) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
