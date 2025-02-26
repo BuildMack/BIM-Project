@@ -2,9 +2,8 @@
 //Trying and learning to work with funcitonal components and hooks
 
 import React, { useEffect, useState, useRef} from "react";
-import { Canvas } from "@react-three/fiber"; // A 3D canvas for rendering the model
+import { Canvas, useLoader } from "@react-three/fiber"; // A 3D canvas for rendering the model and loader
 import { OrbitControls } from "@react-three/drei"; //Allows for rotation and zoom
-import { useLoader } from "@react-three/fiber"; // loads e
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader"; //Loads the .glb (GLTF) files
 import * as THREE from "three";
 
@@ -25,7 +24,7 @@ const ModelViewer = ({file}) => {
         gltf.scene.position.sub(center); // center the model in the view
         const cameraDistance = Math.max(size.x, size.y, size.z) * 1.5; //Getting dimensions of the model
         setCameraPosition([center.x, center.y, center.z + cameraDistance]); //Setting the camera position an appropriate distance away from model center
-        resetPosition.current = [center.x, center.y, center.z + cameraDistance];;
+        resetPosition.current = [center.x, center.y, center.z + cameraDistance];
         }
     }, [gltf]);
 
@@ -35,13 +34,35 @@ const ModelViewer = ({file}) => {
         controlsRef.current.reset();
       }  
     };
+    
+    //Changes color of each part of the house we interact with
+    const colorChange = (e) => {
+      console.log("Clicked object:", e.object.name); //Print out object name as test that we can view the names
+      if (e.object.material) {
+        //Incase one object is composed of mutiple this just tells us to change the color of them all
+        if (Array.isArray(e.object.material)) { 
+          e.object.material.forEach(mat => {
+            if (mat.color) {
+              mat.color.set(0xffcc99);
+            }
+          });
+        } else if (e.object.material.color) { //otherwise it is a single object and we can just change the color of the one. 
+          e.object.material.color.set(0xffcc99);
+        }
+      }
+      e.stopPropagation(); //prevents click from impacting parent elements
+    };    
 
   return ( //return the information for making a 3D scene
     <div style={{ position: "relative", width: "100vw", height: "100vh" }}>
       <Canvas camera={{ position: cameraPosition,near: 0.1, far: 10000000, fov: 100 }} style={{ width: "100%", height: "100%" }}>
         <ambientLight intensity={2} />
         <directionalLight position={[5, 10, 5]} intensity={2} />
-        <primitive object={gltf.scene} />
+        
+        <group onClick={colorChange}>  // To implement on click it is necessary to wrap the scene object so that the colorChange applies to any part of the object
+          <primitive object={gltf.scene} />
+        </group>
+
         <OrbitControls ref={controlsRef} />
       </Canvas>
 
