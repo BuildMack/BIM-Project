@@ -43,11 +43,31 @@ const ModelViewer = ({file}) => {
         if (Array.isArray(e.object.material)) { 
           e.object.material.forEach(mat => {
             if (mat.color) {
-              mat.color.set(0xffcc99);
+
+              // save the original color
+              if (!mat.userData.originalColor) {
+                //Three.js adds userData to each material which is basically like temporary memory where we can store information for the runtime of the scene
+                mat.userData.originalColor = mat.color.getHex();
+              }
+              //Toggle color on and off
+              if (mat.color.getHex() === 0xffcc99) {
+                mat.color.set(mat.userData.originalColor);
+              } else {
+                mat.color.set(0xffcc99);
+              }
             }
           });
         } else if (e.object.material.color) { //otherwise it is a single object and we can just change the color of the one. 
-          e.object.material.color.set(0xffcc99);
+            // save the original color
+            if (!e.object.material.userData.originalColor) {
+              e.object.material.userData.originalColor = e.object.material.color.getHex();
+            }
+            //Toggle color on and off
+            if (e.object.material.color.getHex() === 0xffcc99) {
+              e.object.material.color.set(e.object.material.userData.originalColor);
+            } else {
+              e.object.material.color.set(0xffcc99);
+            }
         }
       }
       e.stopPropagation(); //prevents click from impacting parent elements
